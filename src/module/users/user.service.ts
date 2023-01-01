@@ -9,9 +9,8 @@ import { UserDto } from 'src/dto/UserDto';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private _usersRepository: Repository<User>,
-  ) // private _dataSource: DataSource,
-  {}
+    private _usersRepository: Repository<User>, // private _dataSource: DataSource,
+  ) {}
 
   findAll(): Promise<User[]> {
     return this._usersRepository.find();
@@ -25,8 +24,15 @@ export class UsersService {
     await this._usersRepository.delete(id);
   }
 
-  addUser(user: UserDto): Promise<UserDto> {
-    return this._usersRepository.save(user);
+  async addUser(user: UserDto): Promise<UserDto | void> {
+    const isUserExist = await this._isUserExist(user);
+    if (!isUserExist) return this._usersRepository.save(user);
+  }
+
+  private async _isUserExist(user: UserDto): Promise<boolean> {
+    const searchUser = await this.getUserByEmail(user.email);
+    if (searchUser) return true;
+    else return false;
   }
 
   getUserByEmail(email: string): Promise<User> {

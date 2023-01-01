@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { BlogSummary } from '../blogSummary/blogSummary.entity';
 
 @Entity()
 export class User {
@@ -13,4 +14,7 @@ export class User {
 
   @Column()
   image: string;
+
+  @OneToMany((type) => BlogSummary, (blogSummary) => blogSummary.author)
+  blogSummaries: BlogSummary[];
 }
