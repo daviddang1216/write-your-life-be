@@ -2,8 +2,9 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToMany,
   ManyToOne,
+  JoinColumn,
+  Index,
 } from 'typeorm';
 import { User } from '../users/users.entity';
 
@@ -12,11 +13,14 @@ export class BlogSummary {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Index({ fulltext: true })
+  @Column({ length: 100 })
   title: string;
 
   @Column()
   image: string;
 
-  @ManyToOne((type) => User, (user) => user.blogSummaries) author: User;
+  @ManyToOne((type) => User, (user) => user.blogSummaries)
+  @JoinColumn()
+  author: User;
 }

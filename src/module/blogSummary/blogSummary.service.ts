@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { BlogSummary } from './blogSummary.entity';
 import { DataSource } from 'typeorm';
 import { BlogSummaryDto } from 'src/dto/BlogSummaryDto';
+import { BlogDetailService } from '../blogDetail/blogDetail.service';
+import { BlogDto } from 'src/dto/BlogDto';
 
 @Injectable()
 export class BlogSummaryService {
@@ -11,14 +13,22 @@ export class BlogSummaryService {
     @InjectRepository(BlogSummary)
     private _blogSummaryRepository: Repository<BlogSummary>,
     private _dataSource: DataSource,
+    private readonly _blogDetailService: BlogDetailService,
   ) {}
 
   findAll(): Promise<BlogSummary[]> {
     return this._dataSource
-      .getRepository(BlogSummary)
-      .createQueryBuilder('blogSummary')
-      .innerJoinAndSelect('blogSummary.author', 'author')
-      .getMany();
+      .query(`SELECT bs.*, u.image as authorImage, u.name as authorName from blog_summary bs 
+      inner join user u on bs.authorId = u.id`);
+  }
+
+  findByFullTextSearch(searchTerm: string): Promise<BlogSummary[]> {
+    return this._dataSource.query(
+      `SELECT bs.*, u.image as authorImage, u.name as authorName from blog_summary bs 
+      inner join user u on bs.authorId = u.id
+      inner join blog_detail bd on bs.id = bd.blogSummaryId
+        and MATCH(bd.content) against('${searchTerm}*' IN BOOLEAN MODE);`,
+    );
   }
 
   findOne(id: number): Promise<BlogSummary> {
@@ -29,6 +39,19 @@ export class BlogSummaryService {
     await this._blogSummaryRepository.delete(id);
   }
 
+  async addBlog(blog: BlogDto): Promise<void> {
+    const { title, image, author, content } = blog;
+    console.log(author);
+    const blogSummary = await this._blogSummaryRepository.save({
+      title,
+      image,
+      author,
+    });
+    await this._blogDetailService.addBlogDetail({
+      content,
+      blogSummary,
+    });
+  }
   //   addBlogSummary(blogSummary: BlogSummaryDto): Promise<BlogSummaryDto | void> {
   //     if (!this._isBlogSummaryExist(blogSummary))
   //       return this._blogSummaryRepository.save(blogSummary);

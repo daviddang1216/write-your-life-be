@@ -8,5 +8,6 @@ import { BlogDetailService } from './blogDetail.service';
   imports: [TypeOrmModule.forFeature([BlogDetail])],
   providers: [BlogDetailService],
   controllers: [BlogDetailController],
+  exports: [BlogDetailService],
 })
 export class BlogDetailModule {}

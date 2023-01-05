@@ -22,4 +22,9 @@ export class UsersController {
     console.log(email);
     return this._userService.getUserByEmail(email);
   }
+
+  @Get('test')
+  getTest(): Promise<any> {
+    return this._userService.getTest();
+  }
 }

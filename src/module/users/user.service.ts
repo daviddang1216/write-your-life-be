@@ -9,7 +9,8 @@ import { UserDto } from 'src/dto/UserDto';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private _usersRepository: Repository<User>, // private _dataSource: DataSource,
+    private _usersRepository: Repository<User>,
+    private _dataSource: DataSource,
   ) {}
 
   findAll(): Promise<User[]> {
@@ -38,5 +39,9 @@ export class UsersService {
   getUserByEmail(email: string): Promise<User> {
     console.log(email);
     return this._usersRepository.findOneBy({ email });
+  }
+
+  getTest() {
+    return this._dataSource.query(`select * from user`);
   }
 }
