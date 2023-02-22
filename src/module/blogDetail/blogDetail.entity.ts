@@ -8,9 +8,10 @@ import {
   JoinColumn,
   TableForeignKey,
   Index,
+  OneToMany,
 } from 'typeorm';
 import { BlogSummary } from '../blogSummary/blogSummary.entity';
-import { User } from '../users/users.entity';
+import { Comment } from '../comment/comment.entity';
 
 @Entity()
 export class BlogDetail {
@@ -26,4 +27,7 @@ export class BlogDetail {
   @OneToOne(() => BlogSummary)
   @JoinColumn()
   blogSummary: BlogSummary;
+
+  @OneToMany(() => Comment, (comment) => comment.blogDetail)
+  comments: Comment[];
 }

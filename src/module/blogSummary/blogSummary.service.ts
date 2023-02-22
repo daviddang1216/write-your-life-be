@@ -6,6 +6,7 @@ import { DataSource } from 'typeorm';
 import { BlogSummaryDto } from 'src/dto/BlogSummaryDto';
 import { BlogDetailService } from '../blogDetail/blogDetail.service';
 import { BlogDto } from 'src/dto/BlogDto';
+import CategoryEnum from 'src/enum/CategoryEnum';
 
 @Injectable()
 export class BlogSummaryService {
@@ -33,6 +34,15 @@ export class BlogSummaryService {
 
   findOne(id: number): Promise<BlogSummary> {
     return this._blogSummaryRepository.findOneBy({ id });
+  }
+
+  findByCategory(category: CategoryEnum): Promise<BlogSummary[]> {
+    return this._dataSource.query(
+      `select bs.*
+      from blog_summary bs 
+      inner join category c on bs.categoryId = c.id and c.name="${category}"
+      `,
+    );
   }
 
   async remove(id: string): Promise<void> {

@@ -1,19 +1,33 @@
-// import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-// import { Blog } from '../blog/blog.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+} from 'typeorm';
+import { BlogDetail } from '../blogDetail/blogDetail.entity';
+import { User } from '../users/users.entity';
 
-// @Entity()
-// export class Comment {
-//   @PrimaryGeneratedColumn()
-//   id: number;
+@Entity()
+export class Comment {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-//   @Column()
-//   content: string;
+  @CreateDateColumn()
+  created_at: Date; // Creation date
 
-//   @Column()
-//   email: string;
+  @Column({ length: 10000 })
+  content: string;
 
-//   @Column()
-//   image: string;
+  @Column()
+  like: number;
 
-//   @OneToMany((type) => Blog, (blog) => blog.author) blogs: Blog[];
-// }
+  @Column()
+  dislike: number;
+
+  @ManyToOne(() => BlogDetail, (blogDetail) => blogDetail.comments)
+  blogDetail: BlogDetail;
+
+  @ManyToOne(() => User, (user) => user.comments)
+  user: User;
+}

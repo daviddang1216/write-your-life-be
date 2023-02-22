@@ -5,7 +5,10 @@ import {
   ManyToOne,
   JoinColumn,
   Index,
+  JoinTable,
+  ManyToMany,
 } from 'typeorm';
+import { Category } from '../category/category.entity';
 import { User } from '../users/users.entity';
 
 @Entity()
@@ -20,7 +23,13 @@ export class BlogSummary {
   @Column()
   image: string;
 
+  @Column()
+  heart: number;
+
   @ManyToOne((type) => User, (user) => user.blogSummaries)
   @JoinColumn()
   author: User;
+
+  @ManyToOne((type) => Category, (category) => category.blogSummaries)
+  category: Category;
 }
