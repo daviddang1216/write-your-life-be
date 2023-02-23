@@ -31,5 +31,6 @@ export class BlogSummary {
   author: User;
 
   @ManyToOne((type) => Category, (category) => category.blogSummaries)
+  @JoinColumn()
   category: Category;
 }

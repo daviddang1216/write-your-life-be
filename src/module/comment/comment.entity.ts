@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   CreateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { BlogDetail } from '../blogDetail/blogDetail.entity';
 import { User } from '../users/users.entity';
@@ -22,12 +23,11 @@ export class Comment {
   @Column()
   like: number;
 
-  @Column()
-  dislike: number;
-
   @ManyToOne(() => BlogDetail, (blogDetail) => blogDetail.comments)
+  @JoinColumn()
   blogDetail: BlogDetail;
 
   @ManyToOne(() => User, (user) => user.comments)
+  @JoinColumn()
   user: User;
 }

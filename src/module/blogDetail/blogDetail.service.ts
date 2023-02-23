@@ -18,7 +18,9 @@ export class BlogDetailService {
     return this._blogDetailRepository.findOne({
       relations: {
         blogSummary: true,
-        comments: true,
+        comments: {
+          user: true,
+        },
       },
       where: {
         blogSummary: {

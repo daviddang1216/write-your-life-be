@@ -38,9 +38,10 @@ export class BlogSummaryService {
 
   findByCategory(category: CategoryEnum): Promise<BlogSummary[]> {
     return this._dataSource.query(
-      `select bs.*
+      `select bs.*, u.image as authorImage, u.name as authorName
       from blog_summary bs 
       inner join category c on bs.categoryId = c.id and c.name="${category}"
+      inner join user u on bs.authorId = u.id
       `,
     );
   }
@@ -50,12 +51,14 @@ export class BlogSummaryService {
   }
 
   async addBlog(blog: BlogDto): Promise<void> {
-    const { title, image, author, content } = blog;
+    const { title, image, author, content, category } = blog;
     console.log(author);
     const blogSummary = await this._blogSummaryRepository.save({
       title,
       image,
       author,
+      category,
+      heart: 0,
     });
     await this._blogDetailService.addBlogDetail({
       content,
