@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { BlogDto } from 'src/dto/BlogDto';
+import { BlogSummaryDto } from 'src/dto/BlogSummaryDto';
 import CategoryEnum from 'src/enum/CategoryEnum';
 import { BlogSummary } from './blogSummary.entity';
 import { BlogSummaryService } from './blogSummary.service';
@@ -16,6 +17,11 @@ export class BlogSummaryController {
   @Post('add-blog')
   addBlog(@Body() blog: BlogDto) {
     return this._blogSummaryService.addBlog(blog);
+  }
+
+  @Post('update-blog')
+  updateBlog(@Body() blogSummary: BlogSummaryDto) {
+    return this._blogSummaryService.updateBlogSummary(blogSummary);
   }
 
   @Get('search')

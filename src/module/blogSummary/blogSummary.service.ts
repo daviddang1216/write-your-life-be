@@ -65,6 +65,12 @@ export class BlogSummaryService {
       blogSummary,
     });
   }
+
+  async   updateBlogSummary(blogSummary: BlogSummaryDto): Promise<BlogSummary> {
+    return this._blogSummaryRepository.save({
+      ...blogSummary,
+    });
+  }
   //   addBlogSummary(blogSummary: BlogSummaryDto): Promise<BlogSummaryDto | void> {
   //     if (!this._isBlogSummaryExist(blogSummary))
   //       return this._blogSummaryRepository.save(blogSummary);
