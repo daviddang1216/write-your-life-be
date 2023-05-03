@@ -7,6 +7,7 @@ import {
   Index,
   JoinTable,
   ManyToMany,
+  CreateDateColumn,
 } from 'typeorm';
 import { Category } from '../category/category.entity';
 import { User } from '../users/users.entity';
@@ -19,6 +20,9 @@ export class BlogSummary {
   @Index({ fulltext: true })
   @Column({ length: 100 })
   title: string;
+
+  @CreateDateColumn()
+  created_at: Date;
 
   @Column()
   image: string;

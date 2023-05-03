@@ -15,14 +15,15 @@ import { CategoryModule } from './module/category/category.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: '54.169.148.230',
       port: 3306,
       username: 'root',
-      password: 'mypassword',
-      database: 'blog-project-1',
+      password: 'my-secret-pw',
+      database: 'blog-product',
       entities: [User, BlogSummary, BlogDetail, Comment, Category],
       synchronize: true,
       logging: true,
+      timezone: 'UTC',
     }),
     UserModule,
     BlogSummaryModule,
