@@ -26,7 +26,7 @@
 
 This is a web-based platform solve the problem for individual or organisation to share the digital content via blogs instead of traditional ways that is inconvenient and time-consuming. 
 
-This is the back-end service of the project, front-end service can be found at [https://github.com/thekingincatsle/write-your-life-be](https://github.com/thekingincatsle/write-our-life)
+This is the back-end service of the project, front-end service can be found at [https://github.com/daviddang1216/write-your-life-be](https://github.com/daviddang1216/write-our-life)
 
 ## Tech-stack used in this repo
 NestJs, TypeScript, MySQL, AWS S3, GoogleAPI
