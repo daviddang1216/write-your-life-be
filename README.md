@@ -24,7 +24,17 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is a web-based platform solve the problem for individual or organisation to share the digital content via blogs instead of traditional ways that is inconvenient and time-consuming. 
+
+This is the back-end service of the project, front-end service can be found at [https://github.com/thekingincatsle/write-your-life-be](https://github.com/thekingincatsle/write-our-life)
+
+## Tech-stack used in this repo
+NestJs, TypeScript, MySQL, AWS S3, GoogleAPI
+
+## Some image of the project
+![image](https://github.com/thekingincatsle/write-our-life/assets/79959383/9ee71e9a-1bfb-46ec-b082-3d385acc1ab2)
+![image](https://github.com/thekingincatsle/write-our-life/assets/79959383/768651da-3d2d-4e43-a7f6-a8f655771ecb)
+![image](https://github.com/thekingincatsle/write-our-life/assets/79959383/9f14b8f3-574b-4efb-b3ba-04c64d56a577)
 
 ## Installation
 
@@ -57,17 +67,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
